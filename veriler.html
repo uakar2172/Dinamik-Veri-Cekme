@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Verileri</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Laptop Verileri</h1>
+    <table id="laptopTable">
+        <thead>
+            <tr>
+                <th>Laptop Adı</th>
+                <th>Fiyat</th>
+                <th>İnç</th>
+                <th>RAM</th>
+                <th>İşlemci</th>
+                <th>Puan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Veriler buraya gelecek -->
+        </tbody>
+    </table>
+
+    <script>
+        // JSON dosyasını okuma ve tabloya aktarma
+        fetch('düzenlenmiş.json')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#laptopTable tbody');
+                console.log(data); // Veriyi kontrol etmek için
+
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row['Laptop Adı']}</td>
+                        <td>${row['Fiyat'] !== null ? row['Fiyat'] : 'Fiyat Bilgisi Yok'} ₺</td>
+                        <td>${row['İnç']}</td>
+                        <td>${row['RAM']}</td>
+                        <td>${row['İşlemci']}</td>
+                        <td>${row['Puan']}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error('Error loading the JSON data:', error));
+    </script>
+
+</body>
+</html>
